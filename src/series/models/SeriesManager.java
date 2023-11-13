@@ -5,6 +5,7 @@
  */
 package series.models;
 
+import helpers.Validation;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,13 @@ public class SeriesManager {
     private static final String UPDATE_SUCCEED = "Serie actalizada con éxito";
     private static final String SERIES_NOT_FOUND = "La serie no se encontró";
     private static final String DELETED_SUCCEED = "Serie eliminada con éxito";
+    private static final String TITLE_INVALID = "Ingrese un título válido";
+    private static final String DETAIL_INVALID = "Ingrese una descripción válida";
+    private static final String RELEASED_INVALID = "Ingrese una fecha de lanzamiento válida";
+    private static final String RATE_INVALID = "Ingrese una cantidad de estrellas válida";
+    private static final String GENRE_INVALID = "Ingrese un género válido";
+    private static final String PRICE_INVALID = "Ingrese un precio válido";    
+    
     
     public SeriesManager() {
     }
@@ -41,7 +49,12 @@ public class SeriesManager {
             lastId = series.get(series.size() - 1).getIdSeries() + 1;
         }
         
-        //Aca vam las validaciones con un return del texto de error
+        if(!Validation.titleValidation(title)) return TITLE_INVALID;
+        if(!Validation.detailValidation(detail)) return DETAIL_INVALID;
+        if(!Validation.genreValidation(genre)) return GENRE_INVALID;
+        if(!Validation.releasedValidation(released)) return RELEASED_INVALID;
+        if(!Validation.priceValidation(price)) return PRICE_INVALID;
+        if(!Validation.rateValidation(rate)) return RATE_INVALID;
         
         Series newSeries = new Series(lastId, title, detail, released, rate, genre, price, ATP);
         series.add(newSeries);
@@ -60,7 +73,12 @@ public class SeriesManager {
             return SERIES_NOT_FOUND;
         }
         
-        //Validaciones dentro de cada asignacion
+        if(!Validation.titleValidation(title)) return TITLE_INVALID;
+        if(!Validation.detailValidation(detail)) return DETAIL_INVALID;
+        if(!Validation.genreValidation(genre)) return GENRE_INVALID;
+        if(!Validation.releasedValidation(released)) return RELEASED_INVALID;
+        if(!Validation.priceValidation(price)) return PRICE_INVALID;
+        if(!Validation.rateValidation(rate)) return RATE_INVALID;
         
         updatedSeries.setTitle(title);
         updatedSeries.setDetail(detail);

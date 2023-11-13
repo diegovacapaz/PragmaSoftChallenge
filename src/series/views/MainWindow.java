@@ -15,6 +15,8 @@ import series.models.SeriesManager;
  */
 public class MainWindow {
     public static void main(String[] args) {
+        //I have not deleted de comments in main branch because this is a test
+        
         SeriesManager manager= SeriesManager.create();
         
         manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.01f, true);
@@ -38,5 +40,8 @@ public class MainWindow {
         }
         
         System.out.println(manager.searchSerieById(1).getIdSeries());
+        
+        String message3 = manager.createSeries("Peter Pan", "  D", LocalDate.of(2020, 1, 25), -1, "Drama", 2000.01f, true);
+        System.out.println(message3);
     }
 }
