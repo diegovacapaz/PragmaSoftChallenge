@@ -38,7 +38,7 @@ public class SeriesManager {
     public String createSeries(String title, String detail, LocalDate released, int rate, String genre, float price, boolean ATP){
         int lastId = 1;
         if(series.size() > 0){
-            lastId = series.get(series.size() - 1).getIdSeries();
+            lastId = series.get(series.size() - 1).getIdSeries() + 1;
         }
         
         //Aca vam las validaciones con un return del texto de error
