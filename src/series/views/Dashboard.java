@@ -5,7 +5,13 @@
  */
 package series.views;
 
+import java.time.LocalDate;
+import javax.swing.JButton;
+import javax.swing.JTable;
 import series.controllers.DashboardController;
+import series.models.CustomTableCellRenderer;
+import series.models.SeriesManager;
+import series.models.SeriesTable;
 
 /**
  *
@@ -32,66 +38,66 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        refresh = new javax.swing.JButton();
-        exit = new javax.swing.JButton();
-        update = new javax.swing.JButton();
-        switchState = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnSwitchState = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         scrollPanel = new javax.swing.JScrollPane();
-        tablaSeries = new javax.swing.JTable();
-        create = new javax.swing.JButton();
+        seriesTable = new javax.swing.JTable();
+        btnCreate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Series Administrator");
         setName("Dashboard"); // NOI18N
         setResizable(false);
 
-        refresh.setText("Consultar");
-        refresh.setActionCommand("refresh");
-        refresh.setPreferredSize(new java.awt.Dimension(77, 30));
-        refresh.addActionListener(new java.awt.event.ActionListener() {
+        btnRefresh.setText("Consultar");
+        btnRefresh.setActionCommand("refresh");
+        btnRefresh.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshActionPerformed(evt);
+                btnRefreshActionPerformed(evt);
             }
         });
 
-        exit.setText("Salir");
-        exit.setActionCommand("exit");
-        exit.setPreferredSize(new java.awt.Dimension(77, 30));
-        exit.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setText("Salir");
+        btnExit.setActionCommand("exit");
+        btnExit.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
-        update.setText("Modificar");
-        update.setActionCommand("update");
-        update.setPreferredSize(new java.awt.Dimension(77, 30));
-        update.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Modificar");
+        btnUpdate.setActionCommand("update");
+        btnUpdate.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        switchState.setText("Anular");
-        switchState.setActionCommand("switchState");
-        switchState.setPreferredSize(new java.awt.Dimension(77, 30));
-        switchState.addActionListener(new java.awt.event.ActionListener() {
+        btnSwitchState.setText("Anular");
+        btnSwitchState.setActionCommand("switchState");
+        btnSwitchState.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnSwitchState.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                switchStateActionPerformed(evt);
+                btnSwitchStateActionPerformed(evt);
             }
         });
 
-        delete.setText("Eliminar");
-        delete.setActionCommand("delete");
-        delete.setPreferredSize(new java.awt.Dimension(77, 30));
-        delete.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setText("Eliminar");
+        btnDelete.setActionCommand("delete");
+        btnDelete.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
-        tablaSeries.setModel(new javax.swing.table.DefaultTableModel(
+        seriesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -102,14 +108,14 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        scrollPanel.setViewportView(tablaSeries);
+        scrollPanel.setViewportView(seriesTable);
 
-        create.setText("Nuevo");
-        create.setActionCommand("update");
-        create.setPreferredSize(new java.awt.Dimension(77, 30));
-        create.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Nuevo");
+        btnCreate.setActionCommand("update");
+        btnCreate.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
@@ -121,37 +127,37 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(switchState, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSwitchState, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
-                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                    .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(switchState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSwitchState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -160,54 +166,107 @@ public class Dashboard extends javax.swing.JFrame {
                     .addContainerGap(51, Short.MAX_VALUE)))
         );
 
-        refresh.getAccessibleContext().setAccessibleName("refresh");
-        exit.getAccessibleContext().setAccessibleName("exit");
-        update.getAccessibleContext().setAccessibleName("update");
-        switchState.getAccessibleContext().setAccessibleName("switchState");
-        delete.getAccessibleContext().setAccessibleName("delete");
+        btnRefresh.getAccessibleContext().setAccessibleName("refresh");
+        btnExit.getAccessibleContext().setAccessibleName("exit");
+        btnUpdate.getAccessibleContext().setAccessibleName("update");
+        btnSwitchState.getAccessibleContext().setAccessibleName("switchState");
+        btnDelete.getAccessibleContext().setAccessibleName("delete");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         this.controller.btnRefreshClick(evt);
-    }//GEN-LAST:event_refreshActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         this.controller.btnUpdateClick(evt);
-    }//GEN-LAST:event_updateActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void switchStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchStateActionPerformed
+    private void btnSwitchStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchStateActionPerformed
         this.controller.btnSwitchStateClick(evt);
-    }//GEN-LAST:event_switchStateActionPerformed
+    }//GEN-LAST:event_btnSwitchStateActionPerformed
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.controller.btnDeleteClick(evt);
-    }//GEN-LAST:event_deleteActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.controller.btnExitClick(evt);
-    }//GEN-LAST:event_exitActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
-    private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         this.controller.btnCreateClick(evt);
-    }//GEN-LAST:event_createActionPerformed
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        SeriesManager manager= SeriesManager.create();
+        
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.01f, true);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2050.10f, true);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.152f, true);
+        
+        String message = manager.deleteSeries(2);
+        System.out.println(message);
+        
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.152f, true);
+        
+        for(int i = 0; i < manager.listSeries().size(); i++){
+            System.out.println(manager.listSeries().get(i).getDetail());        
+        }
+        
+        String message2 = manager.updateSeries(3, "Peter Pan 2", "Descripcion simple 2", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.01f, true);
+        System.out.println(message2);
+        
+        for(int i = 0; i < manager.listSeries().size(); i++){
+            System.out.println(manager.listSeries().get(i).getDetail());     
+        }
+        
+        System.out.println(manager.searchSerieById(1).getIdSeries());
+        
+        String message3 = manager.createSeries("Peter Pan", "  D", LocalDate.of(2020, 1, 25), 0, "Drama", 2000.01f, true);
+        System.out.println(message3);
+        
+        
         DashboardController controller = new DashboardController();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton create;
-    private javax.swing.JButton delete;
-    private javax.swing.JButton exit;
-    private javax.swing.JButton refresh;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSwitchState;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane scrollPanel;
-    private javax.swing.JButton switchState;
-    private javax.swing.JTable tablaSeries;
-    private javax.swing.JButton update;
+    private javax.swing.JTable seriesTable;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getCreate() {
+        return btnCreate;
+    }
+
+    public JButton getDelete() {
+        return btnDelete;
+    }
+
+    public JButton getExit() {
+        return btnExit;
+    }
+
+    public JButton getRefresh() {
+        return btnRefresh;
+    }
+
+    public JTable getSeriesTable() {
+        return seriesTable;
+    }
+
+    public JButton getUpdate() {
+        return btnUpdate;
+    }
+    
 }
