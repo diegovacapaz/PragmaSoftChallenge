@@ -102,5 +102,38 @@ public class Series {
         this.state = state;
     }
     
+    public void activate(){
+        this.state = "AC";
+    }
+    
+    public void deactivate(){
+        this.state = "AN";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.idSeries;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Series other = (Series) obj;
+        if (this.idSeries != other.idSeries) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }
