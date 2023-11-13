@@ -6,7 +6,6 @@
 package series.views;
 
 import java.time.LocalDate;
-import java.time.Month;
 import series.models.SeriesManager;
 
 /**
@@ -41,7 +40,7 @@ public class MainWindow {
         
         System.out.println(manager.searchSerieById(1).getIdSeries());
         
-        String message3 = manager.createSeries("Peter Pan", "  D", LocalDate.of(2020, 1, 25), -1, "Drama", 2000.01f, true);
+        String message3 = manager.createSeries("Peter Pan", "  D", LocalDate.of(2020, 1, 25), 0, "Drama", 2000.01f, true);
         System.out.println(message3);
     }
 }
