@@ -29,8 +29,9 @@ public class DashboardController {
     private static final String SWITCH_STATE_EMPTY = "No hay series para anular o activar";
     private static final String ACTIVATE_STATE_CONFIRMATION = "¿Desea activar la serie seleccionada?";
     private static final String DEACTIVATE_STATE_CONFIRMATION = "¿Desea desactivar la serie seleccionada?";
+    private static final String UPDATE_EMPTY = "No hay series para modificar";
+    private static final String UPDATE_UNABLED = "No puede modificar una serie anulada";
 
-    
     public DashboardController() {
         this.window = new Dashboard(this);
         this.window.setLocationRelativeTo(null);
@@ -68,12 +69,37 @@ public class DashboardController {
     }
     
     public void btnCreateClick(ActionEvent evt){
-        //Abirir una nueva ventana jdialog
+        SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
+        
+        SeriesFormController controller = new SeriesFormController(this.window, true, null);
+        tableModel.refresh();
     }
     
     public void btnUpdateClick(ActionEvent evt){
-        //abrir una nueva ventana jdialog
-        //si no hay series tiene que aparecer una joptionpane
+        SeriesManager manager = SeriesManager.create();
+        
+        if(manager.listSeries().isEmpty()){
+            JOptionPane.showMessageDialog(this.window, UPDATE_EMPTY, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int selectedRow = this.window.getSeriesTable().getSelectedRow();
+        
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this.window, ROW_NOT_SELECTED, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
+        Series selectedSeries = tableModel.getSerie(selectedRow);
+        if(selectedSeries.isActive()){
+            SeriesFormController controller = new SeriesFormController(this.window, false, selectedSeries);
+            tableModel.refresh();
+        }
+        else{
+            JOptionPane.showMessageDialog(this.window, UPDATE_UNABLED, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }
     
     public void btnDeleteClick(ActionEvent evt){

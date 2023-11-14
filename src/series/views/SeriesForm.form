@@ -133,6 +133,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTitle">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTitleKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDetail">
       <Properties>
@@ -151,6 +154,9 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtAreaDetailKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -193,8 +199,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRate">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRateKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrice">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPriceKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkATP">
       <Properties>
@@ -205,11 +217,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAccept">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aceptar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcceptActionPerformed"/>
+      </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="datePickerReleased">
       <Properties>

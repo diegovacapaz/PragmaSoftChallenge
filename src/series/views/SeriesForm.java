@@ -5,18 +5,28 @@
  */
 package series.views;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import series.controllers.SeriesFormController;
+import com.toedter.calendar.JDateChooser;
+
 /**
  *
  * @author Diego
  */
 public class SeriesForm extends javax.swing.JDialog {
-
+    
+    private SeriesFormController controller;
     /**
      * Creates new form NewJDialog
      */
-    public SeriesForm(java.awt.Frame parent, boolean modal) {
+    public SeriesForm(SeriesFormController controller, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.controller = controller;
     }
 
     /**
@@ -49,10 +59,21 @@ public class SeriesForm extends javax.swing.JDialog {
 
         lblTitle.setText("Título:");
 
+        txtTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTitleKeyTyped(evt);
+            }
+        });
+
         lblDetail.setText("Descripción:");
 
         txtAreaDetail.setColumns(20);
         txtAreaDetail.setRows(5);
+        txtAreaDetail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAreaDetailKeyTyped(evt);
+            }
+        });
         detailScrollPanel.setViewportView(txtAreaDetail);
 
         lblReleased.setText("Fecha de Estreno:");
@@ -66,11 +87,33 @@ public class SeriesForm extends javax.swing.JDialog {
 
         lblPrice.setText("Precio Alquiler:");
 
+        txtRate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRateKeyTyped(evt);
+            }
+        });
+
+        txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPriceKeyTyped(evt);
+            }
+        });
+
         checkATP.setText("Apta para todo público (ATP)");
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnAccept.setText("Aceptar");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         datePickerReleased.setPreferredSize(new java.awt.Dimension(61, 20));
 
@@ -158,48 +201,30 @@ public class SeriesForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeriesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeriesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeriesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeriesForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        this.controller.btnAcceptClick(evt);
+    }//GEN-LAST:event_btnAcceptActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                SeriesForm dialog = new SeriesForm(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.controller.btnCancelClick(evt);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void txtTitleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTitleKeyTyped
+        this.controller.txtTitleKeyTyped(evt);
+    }//GEN-LAST:event_txtTitleKeyTyped
+
+    private void txtAreaDetailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaDetailKeyTyped
+        this.controller.txtAreaDetailKeyTyped(evt);
+    }//GEN-LAST:event_txtAreaDetailKeyTyped
+
+    private void txtRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRateKeyTyped
+        this.controller.txtRateKeyTyped(evt);
+    }//GEN-LAST:event_txtRateKeyTyped
+
+    private void txtPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyTyped
+        this.controller.txtPriceKeyTyped(evt);
+    }//GEN-LAST:event_txtPriceKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccept;
@@ -219,4 +244,42 @@ public class SeriesForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtRate;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnAccept() {
+        return btnAccept;
+    }
+
+    public JButton getBtnCancel() {
+        return btnCancel;
+    }
+
+    public JCheckBox getCheckATP() {
+        return checkATP;
+    }
+
+    public JComboBox<String> getComboGenre() {
+        return comboGenre;
+    }
+
+    public JDateChooser getDatePickerReleased() {
+        return datePickerReleased;
+    }
+
+    public JTextArea getTxtAreaDetail() {
+        return txtAreaDetail;
+    }
+
+    public JTextField getTxtPrice() {
+        return txtPrice;
+    }
+
+    public JTextField getTxtRate() {
+        return txtRate;
+    }
+
+    public JTextField getTxtTitle() {
+        return txtTitle;
+    }
+
+    
 }

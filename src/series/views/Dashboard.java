@@ -213,7 +213,7 @@ public class Dashboard extends javax.swing.JFrame {
         String message = manager.deleteSeries(2);
         System.out.println(message);
         
-        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.152f, true);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.152f, false);
         
         for(int i = 0; i < manager.listSeries().size(); i++){
             System.out.println(manager.listSeries().get(i).getDetail());        
