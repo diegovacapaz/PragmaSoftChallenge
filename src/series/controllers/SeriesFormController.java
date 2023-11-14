@@ -7,6 +7,7 @@ package series.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import series.models.Series;
@@ -21,6 +22,7 @@ import series.views.SeriesForm;
 public class SeriesFormController {
     private SeriesForm window;
     private Series serie;
+    private boolean isCreateWindow;
     public static final String CREATE_WINDOW_TITLE = "Nueva Serie";
     public static final String UPDATE_WINDOW_TITLE = "Modificar Serie";
     
@@ -38,7 +40,7 @@ public class SeriesFormController {
         this.serie = serie;
         this.window.getDatePickerReleased().setDateFormatString("dd/MM/yyyy");
         //this.window.getComboGenre().setModel();
-        if(serie == null){
+        if(serie == null && isCreateWindow){
             this.window.getTxtTitle().setText(null);
             this.window.getTxtAreaDetail().setText(null);
             this.window.getTxtRate().setText(null);
@@ -59,14 +61,31 @@ public class SeriesFormController {
         }
         this.window.setResizable(false);
         this.window.setVisible(true);
+        this.isCreateWindow = isCreateWindow;
     }
     
     public void btnAcceptClick(ActionEvent evt){
-        
+        String title, detail, genre;
+        int rate;
+        float price;
+        LocalDate released;
+        boolean ATP;
+        SeriesManager manager = SeriesManager.create();
+        if(serie == null && this.isCreateWindow){
+            rate = Integer.parseInt(this.window.getTxtRate().getText());
+            price = Float.parseFloat(this.window.getTxtPrice().getText());
+            ATP = this.window.getCheckATP().isSelected();
+            title = this.window.getTxtTitle().getText();
+            detail = this.window.getTxtAreaDetail().getText();
+            
+        }
+        else{
+            
+        }
     }
     
     public void btnCancelClick(ActionEvent evt){
-        
+        this.window.dispose();
     }
     
     public void txtTitleKeyTyped(KeyEvent evt) {                                  

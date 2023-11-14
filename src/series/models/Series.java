@@ -21,6 +21,9 @@ public class Series {
     private float price;
     private boolean ATP;
     private String state;
+    
+    private static final String ACTIVATE_STATE_SUCCEED = "Serie activada con éxito";
+    private static final String DEACTIVATE_STATE_SUCCEED = "Serie anulada con éxito";
 
     public Series(int idSeries, String title, String detail, LocalDate released, int rate, String genre, float price, boolean ATP) {
         this.idSeries = idSeries;
@@ -102,12 +105,14 @@ public class Series {
         this.ATP = ATP;
     }
     
-    public void activate(){
+    public String activate(){
         this.state = "AC";
+        return ACTIVATE_STATE_SUCCEED;
     }
     
-    public void deactivate(){
+    public String deactivate(){
         this.state = "AN";
+        return DEACTIVATE_STATE_SUCCEED;
     }
 
     @Override

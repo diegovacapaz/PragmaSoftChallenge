@@ -28,7 +28,7 @@ public class DashboardController {
     private static final String DELETE_EMPTY = "No hay series para borrar";
     private static final String SWITCH_STATE_EMPTY = "No hay series para anular o activar";
     private static final String ACTIVATE_STATE_CONFIRMATION = "¿Desea activar la serie seleccionada?";
-    private static final String DEACTIVATE_STATE_CONFIRMATION = "¿Desea desactivar la serie seleccionada?";
+    private static final String DEACTIVATE_STATE_CONFIRMATION = "¿Desea anular la serie seleccionada?";
     private static final String UPDATE_EMPTY = "No hay series para modificar";
     private static final String UPDATE_UNABLED = "No puede modificar una serie anulada";
 
@@ -122,7 +122,8 @@ public class DashboardController {
         
         int option = JOptionPane.showOptionDialog(this.window, DELETE_CONFIRMATION, "Eliminar Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, new Object[]{"Eliminar","Volver"}, "Cancelar");
         if(option==JOptionPane.OK_OPTION){
-            manager.deleteSeries(selectedSeries.getIdSeries());
+            String message = manager.deleteSeries(selectedSeries.getIdSeries());
+            JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
             tableModel.refresh();
         }
     }
@@ -148,14 +149,16 @@ public class DashboardController {
         if(selectedSeries.isActive()){
             int option = JOptionPane.showOptionDialog(this.window, DEACTIVATE_STATE_CONFIRMATION, "Anular Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Anular","Volver"}, "Cancelar");
             if(option==JOptionPane.OK_OPTION){
-                manager.searchSerieById(selectedSeries.getIdSeries()).deactivate();
+                String message = manager.searchSerieById(selectedSeries.getIdSeries()).deactivate();
+                JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
                 tableModel.refresh();
             }
         }
         else{
             int option = JOptionPane.showOptionDialog(this.window, ACTIVATE_STATE_CONFIRMATION, "Activar Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Activar","Volver"}, "Cancelar");
             if(option==JOptionPane.OK_OPTION){
-                manager.searchSerieById(selectedSeries.getIdSeries()).activate();
+                String message = manager.searchSerieById(selectedSeries.getIdSeries()).activate();
+                JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
                 tableModel.refresh();
             }
         }
