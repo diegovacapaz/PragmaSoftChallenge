@@ -6,6 +6,7 @@
 package helpers;
 
 import java.time.LocalDate;
+import series.models.GenreComboModel.Genre;
 
 /**
  *
@@ -31,8 +32,8 @@ public class Validation {
         return rate >= 0 && rate <= 5;
     }
     
-    public static boolean genreValidation(String genre){
-        return genre != null && !genre.isBlank() && genre.length() <= 100;
+    public static boolean genreValidation(Genre genre){
+        return genre != null && !genre.toString().isBlank() && genre.toString().length() <= 100;
     }
     
     public static boolean priceValidation(float price){

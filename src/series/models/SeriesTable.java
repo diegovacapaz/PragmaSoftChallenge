@@ -64,7 +64,7 @@ public class SeriesTable extends AbstractTableModel{
             case RATE_COL_INDEX:
                 return serie.getRate();
             case GENRE_COL_INDEX:
-                return serie.getGenre();
+                return serie.getGenre().toString();
             case PRICE_COL_INDEX:
                 return serie.getPrice();
             case ATP_COL_INDEX:

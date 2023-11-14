@@ -99,7 +99,7 @@ public class SeriesForm extends javax.swing.JDialog {
             }
         });
 
-        checkATP.setText("Apta para todo público (ATP)");
+        checkATP.setText("Apta para todo público");
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {

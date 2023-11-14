@@ -9,6 +9,7 @@ import helpers.Validation;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import series.models.GenreComboModel.Genre;
 
 /**
  *
@@ -17,16 +18,16 @@ import java.util.List;
 public class SeriesManager {
     private static List<Series> series = new ArrayList<>();
     private static SeriesManager instance;
-    private static final String CREATE_SUCCEED = "Serie creada con éxito";
-    private static final String UPDATE_SUCCEED = "Serie actalizada con éxito";
-    private static final String SERIES_NOT_FOUND = "La serie no se encontró";
-    private static final String DELETED_SUCCEED = "Serie eliminada con éxito";
-    private static final String TITLE_INVALID = "Ingrese un título válido";
-    private static final String DETAIL_INVALID = "Ingrese una descripción válida";
-    private static final String RELEASED_INVALID = "Ingrese una fecha de lanzamiento válida";
-    private static final String RATE_INVALID = "Ingrese una cantidad de estrellas válida";
-    private static final String GENRE_INVALID = "Ingrese un género válido";
-    private static final String PRICE_INVALID = "Ingrese un precio válido";    
+    public static final String CREATE_SUCCEED = "Serie creada con éxito";
+    public static final String UPDATE_SUCCEED = "Serie actualizada con éxito";
+    public static final String SERIES_NOT_FOUND = "La serie no se encontró";
+    public static final String DELETED_SUCCEED = "Serie eliminada con éxito";
+    public static final String TITLE_INVALID = "Ingrese un título válido";
+    public static final String DETAIL_INVALID = "Ingrese una descripción válida";
+    public static final String RELEASED_INVALID = "Ingrese una fecha de lanzamiento válida";
+    public static final String RATE_INVALID = "Ingrese una cantidad de estrellas válida";
+    public static final String GENRE_INVALID = "Ingrese un género válido";
+    public static final String PRICE_INVALID = "Ingrese un precio válido";    
     
     
     public SeriesManager() {
@@ -43,7 +44,7 @@ public class SeriesManager {
         return series;
     }
     
-    public String createSeries(String title, String detail, LocalDate released, int rate, String genre, float price, boolean ATP){
+    public String createSeries(String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean ATP){
         int lastId = 1;
         if(series.size() > 0){
             lastId = series.get(series.size() - 1).getIdSeries() + 1;
@@ -61,7 +62,7 @@ public class SeriesManager {
         return CREATE_SUCCEED;
     }
     
-    public String updateSeries(int idSeries, String title, String detail, LocalDate released, int rate, String genre, float price, boolean ATP){
+    public String updateSeries(int idSeries, String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean ATP){
         Series updatedSeries = null;
         for(int i = 0; i < series.size(); i++){
             if(series.get(i).getIdSeries() == idSeries){

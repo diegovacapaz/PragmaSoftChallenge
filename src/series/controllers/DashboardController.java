@@ -98,7 +98,6 @@ public class DashboardController {
         }
         else{
             JOptionPane.showMessageDialog(this.window, UPDATE_UNABLED, "Error", JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }
     

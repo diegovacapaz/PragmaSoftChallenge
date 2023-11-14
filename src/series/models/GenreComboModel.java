@@ -19,6 +19,10 @@ public class GenreComboModel extends DefaultComboBoxModel{
         }
     }
     
+    public Genre getGenre(){
+        return (Genre)this.getSelectedItem();
+    }
+    
     public enum Genre {
         ACTION("Acción"),
         HORROR("Terror"),

@@ -10,6 +10,9 @@ import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import series.models.GenreComboModel;
+import series.models.GenreComboModel.Genre;
 import series.models.Series;
 import series.models.SeriesManager;
 import series.views.Dashboard;
@@ -39,7 +42,7 @@ public class SeriesFormController {
         }
         this.serie = serie;
         this.window.getDatePickerReleased().setDateFormatString("dd/MM/yyyy");
-        //this.window.getComboGenre().setModel();
+        this.window.getComboGenre().setModel(new GenreComboModel());
         if(serie == null && isCreateWindow){
             this.window.getTxtTitle().setText(null);
             this.window.getTxtAreaDetail().setText(null);
@@ -53,8 +56,7 @@ public class SeriesFormController {
             this.window.getTxtAreaDetail().setText(serie.getDetail());
             this.window.getTxtRate().setText(Integer.toString(serie.getRate()));
             this.window.getTxtPrice().setText(Float.toString(serie.getPrice()));
-            //Este combo debe selecionar la opcion
-            this.window.getComboGenre().setSelectedIndex(-1);
+            this.window.getComboGenre().setSelectedItem(serie.getGenre());
             this.window.getCheckATP().setSelected(serie.isATP());
             Date released = Date.from(serie.getReleased().atStartOfDay(ZoneId.systemDefault()).toInstant());
             this.window.getDatePickerReleased().setDate(released);
@@ -65,22 +67,53 @@ public class SeriesFormController {
     }
     
     public void btnAcceptClick(ActionEvent evt){
-        String title, detail, genre;
-        int rate;
-        float price;
+        String title;
+        String detail;
+        int rate = -1;
+        Genre genre;
+        float price = -1;
         LocalDate released;
         boolean ATP;
         SeriesManager manager = SeriesManager.create();
-        if(serie == null && this.isCreateWindow){
-            rate = Integer.parseInt(this.window.getTxtRate().getText());
-            price = Float.parseFloat(this.window.getTxtPrice().getText());
-            ATP = this.window.getCheckATP().isSelected();
-            title = this.window.getTxtTitle().getText();
-            detail = this.window.getTxtAreaDetail().getText();
+        
+        String txtRate = this.window.getTxtRate().getText();
+        String txtPrice = this.window.getTxtPrice().getText();
+        
+        if(!txtRate.isBlank()) rate = Integer.parseInt(txtRate);
+        if(!txtPrice.isBlank()) price = Float.parseFloat(txtPrice);
+        ATP = this.window.getCheckATP().isSelected();
+        title = this.window.getTxtTitle().getText();
+        detail = this.window.getTxtAreaDetail().getText();
+        genre = ((GenreComboModel)this.window.getComboGenre().getModel()).getGenre();
+        try{
+            Date date = this.window.getDatePickerReleased().getCalendar().getTime();
+            released = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();               
+        }
+        catch(NullPointerException e){
+            released = null;
+        }
+        
+        if(serie == null || this.isCreateWindow){            
+            int previousSeriesSize = manager.listSeries().size();
+            String message = manager.createSeries(title, detail, released, rate, genre, price, ATP);
             
+            if(manager.listSeries().size() > previousSeriesSize){
+                JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+                this.window.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(this.window, message, "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
-            
+            String message = manager.updateSeries(serie.getIdSeries(), title, detail, released, rate, genre, price, ATP);
+            if(message == SeriesManager.UPDATE_SUCCEED){
+                JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+                this.window.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(this.window, message, "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     

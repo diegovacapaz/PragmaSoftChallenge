@@ -210,7 +210,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkATP">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apta para todo p&#xfa;blico (ATP)"/>
+        <Property name="text" type="java.lang.String" value="Apta para todo p&#xfa;blico"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancel">

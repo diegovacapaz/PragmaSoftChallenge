@@ -6,6 +6,7 @@
 package series.models;
 
 import java.time.LocalDate;
+import series.models.GenreComboModel.Genre;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Series {
     private String detail;
     private LocalDate released;
     private int rate;
-    private String genre;
+    private Genre genre;
     private float price;
     private boolean ATP;
     private String state;
@@ -25,13 +26,13 @@ public class Series {
     private static final String ACTIVATE_STATE_SUCCEED = "Serie activada con éxito";
     private static final String DEACTIVATE_STATE_SUCCEED = "Serie anulada con éxito";
 
-    public Series(int idSeries, String title, String detail, LocalDate released, int rate, String genre, float price, boolean ATP) {
+    public Series(int idSeries, String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean ATP) {
         this.idSeries = idSeries;
         this.title = title.trim();
         this.detail = detail.trim();
         this.released = released;
         this.rate = rate;
-        this.genre = genre.trim();
+        this.genre = genre;
         this.price = price;
         this.ATP = ATP;
         this.state = "AC";
@@ -57,7 +58,7 @@ public class Series {
         return this.rate;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return this.genre;
     }
 
@@ -93,8 +94,8 @@ public class Series {
         this.rate = rate;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre.trim();
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     public void setPrice(float price) {

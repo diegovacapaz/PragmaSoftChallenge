@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import series.controllers.DashboardController;
 import series.models.CustomTableCellRenderer;
+import series.models.GenreComboModel;
 import series.models.SeriesManager;
 import series.models.SeriesTable;
 
@@ -206,20 +207,20 @@ public class Dashboard extends javax.swing.JFrame {
     public static void main(String args[]) {
         SeriesManager manager= SeriesManager.create();
         
-        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.01f, true);
-        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2050.10f, true);
-        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.152f, true);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, GenreComboModel.Genre.DRAMA, 2000.01f, true);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, GenreComboModel.Genre.COMEDY, 2050.10f, true);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, GenreComboModel.Genre.COMEDY, 2000.152f, true);
         
         String message = manager.deleteSeries(2);
         System.out.println(message);
         
-        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.152f, false);
+        manager.createSeries("Peter Pan", "Descripcion simple", LocalDate.of(2020, 1, 25), 2, GenreComboModel.Genre.DRAMA, 2000.152f, false);
         
         for(int i = 0; i < manager.listSeries().size(); i++){
             System.out.println(manager.listSeries().get(i).getDetail());        
         }
         
-        String message2 = manager.updateSeries(3, "Peter Pan 2", "Descripcion simple 2", LocalDate.of(2020, 1, 25), 2, "Drama", 2000.01f, true);
+        String message2 = manager.updateSeries(3, "Peter Pan 2", "Descripcion simple 2", LocalDate.of(2020, 1, 25), 2, GenreComboModel.Genre.DRAMA, 2000.01f, true);
         System.out.println(message2);
         
         for(int i = 0; i < manager.listSeries().size(); i++){
@@ -228,7 +229,7 @@ public class Dashboard extends javax.swing.JFrame {
         
         System.out.println(manager.searchSerieById(1).getIdSeries());
         
-        String message3 = manager.createSeries("Peter Pan", "  D 2   2 ", LocalDate.of(2020, 1, 25), 0, "Drama", 2000.01f, true);
+        String message3 = manager.createSeries("Peter Pan", "  D 2   2 ", LocalDate.of(2020, 1, 25), 0, GenreComboModel.Genre.COMEDY, 2000.01f, true);
         System.out.println(message3);
         
         
