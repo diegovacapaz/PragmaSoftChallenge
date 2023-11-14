@@ -24,58 +24,62 @@ public class Series {
 
     public Series(int idSeries, String title, String detail, LocalDate released, int rate, String genre, float price, boolean ATP) {
         this.idSeries = idSeries;
-        this.title = title;
-        this.detail = detail;
+        this.title = title.trim();
+        this.detail = detail.trim();
         this.released = released;
         this.rate = rate;
-        this.genre = genre;
+        this.genre = genre.trim();
         this.price = price;
         this.ATP = ATP;
         this.state = "AC";
     }
 
     public int getIdSeries() {
-        return idSeries;
+        return this.idSeries;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getDetail() {
-        return detail;
+        return this.detail;
     }
 
     public LocalDate getReleased() {
-        return released;
+        return this.released;
     }
 
     public int getRate() {
-        return rate;
+        return this.rate;
     }
 
     public String getGenre() {
-        return genre;
+        return this.genre;
     }
 
     public float getPrice() {
-        return price;
+        return this.price;
     }
 
     public boolean isATP() {
-        return ATP;
+        return this.ATP;
     }
 
     public String getState() {
-        return state;
+        return this.state;
+    }
+    
+    public boolean isActive(){
+        return this.state.equals("AC");
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.detail = detail.trim();
     }
 
     public void setReleased(LocalDate released) {
@@ -87,7 +91,7 @@ public class Series {
     }
 
     public void setGenre(String genre) {
-        this.genre = genre;
+        this.genre = genre.trim();
     }
 
     public void setPrice(float price) {
@@ -96,10 +100,6 @@ public class Series {
 
     public void setATP(boolean ATP) {
         this.ATP = ATP;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
     
     public void activate(){

@@ -8,6 +8,8 @@ package series.controllers;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import series.models.CustomTableCellRenderer;
+import series.models.Series;
+import series.models.SeriesManager;
 import series.models.SeriesTable;
 import series.views.Dashboard;
 
@@ -21,6 +23,13 @@ public class DashboardController {
     private Dashboard window;
     private static final String WINDOW_TITLE = "Administrador de Series";
     private static final String EXIT_CONFIRMATION = "¿Desea cerrar la sesión?";
+    private static final String DELETE_CONFIRMATION = "¿Desea borrar la serie seleccionada?";
+    private static final String ROW_NOT_SELECTED = "Primero debe seleccionar una fila";
+    private static final String DELETE_EMPTY = "No hay series para borrar";
+    private static final String SWITCH_STATE_EMPTY = "No hay series para anular o activar";
+    private static final String ACTIVATE_STATE_CONFIRMATION = "¿Desea activar la serie seleccionada?";
+    private static final String DEACTIVATE_STATE_CONFIRMATION = "¿Desea desactivar la serie seleccionada?";
+
     
     public DashboardController() {
         this.window = new Dashboard(this);
@@ -68,12 +77,61 @@ public class DashboardController {
     }
     
     public void btnDeleteClick(ActionEvent evt){
-        //abrir una option pane para ocnfirmar
-        //si no hay series tiene que aparecer una joptionpane
+        SeriesManager manager = SeriesManager.create();
+        
+        if(manager.listSeries().isEmpty()){
+            JOptionPane.showMessageDialog(this.window, DELETE_EMPTY, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int selectedRow = this.window.getSeriesTable().getSelectedRow();
+        
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this.window, ROW_NOT_SELECTED, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
+        Series selectedSeries = tableModel.getSerie(selectedRow);
+        
+        int option = JOptionPane.showOptionDialog(this.window, DELETE_CONFIRMATION, "Eliminar Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, new Object[]{"Eliminar","Volver"}, "Cancelar");
+        if(option==JOptionPane.OK_OPTION){
+            manager.deleteSeries(selectedSeries.getIdSeries());
+            tableModel.refresh();
+        }
     }
     
     public void btnSwitchStateClick(ActionEvent evt){
-        //abrir una option pane para ocnfirmar diferenciando los estados y mensajes
-        //si no hay series tiene que aparecer una joptionpane
+        SeriesManager manager = SeriesManager.create();
+        
+        if(manager.listSeries().isEmpty()){
+            JOptionPane.showMessageDialog(this.window, SWITCH_STATE_EMPTY, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int selectedRow = this.window.getSeriesTable().getSelectedRow();
+        
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this.window, ROW_NOT_SELECTED, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
+        Series selectedSeries = tableModel.getSerie(selectedRow);
+        
+        if(selectedSeries.isActive()){
+            int option = JOptionPane.showOptionDialog(this.window, DEACTIVATE_STATE_CONFIRMATION, "Anular Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Anular","Volver"}, "Cancelar");
+            if(option==JOptionPane.OK_OPTION){
+                manager.searchSerieById(selectedSeries.getIdSeries()).deactivate();
+                tableModel.refresh();
+            }
+        }
+        else{
+            int option = JOptionPane.showOptionDialog(this.window, ACTIVATE_STATE_CONFIRMATION, "Activar Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Activar","Volver"}, "Cancelar");
+            if(option==JOptionPane.OK_OPTION){
+                manager.searchSerieById(selectedSeries.getIdSeries()).activate();
+                tableModel.refresh();
+            }
+        }
     }
 }

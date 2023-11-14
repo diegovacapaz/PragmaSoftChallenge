@@ -79,9 +79,9 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnSwitchState.setText("Anular");
+        btnSwitchState.setText("Anular / Activar");
         btnSwitchState.setActionCommand("switchState");
-        btnSwitchState.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnSwitchState.setPreferredSize(new java.awt.Dimension(100, 30));
         btnSwitchState.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSwitchStateActionPerformed(evt);
@@ -108,6 +108,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        seriesTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPanel.setViewportView(seriesTable);
 
         btnCreate.setText("Nuevo");
@@ -130,11 +131,11 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSwitchState, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSwitchState, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -227,7 +228,7 @@ public class Dashboard extends javax.swing.JFrame {
         
         System.out.println(manager.searchSerieById(1).getIdSeries());
         
-        String message3 = manager.createSeries("Peter Pan", "  D", LocalDate.of(2020, 1, 25), 0, "Drama", 2000.01f, true);
+        String message3 = manager.createSeries("Peter Pan", "  D 2   2 ", LocalDate.of(2020, 1, 25), 0, "Drama", 2000.01f, true);
         System.out.println(message3);
         
         
@@ -245,19 +246,19 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTable seriesTable;
     // End of variables declaration//GEN-END:variables
 
-    public JButton getCreate() {
+    public JButton getBtnCreate() {
         return btnCreate;
     }
 
-    public JButton getDelete() {
+    public JButton getBtnDelete() {
         return btnDelete;
     }
 
-    public JButton getExit() {
+    public JButton getBtnExit() {
         return btnExit;
     }
 
-    public JButton getRefresh() {
+    public JButton getBtnRefresh() {
         return btnRefresh;
     }
 
@@ -265,7 +266,7 @@ public class Dashboard extends javax.swing.JFrame {
         return seriesTable;
     }
 
-    public JButton getUpdate() {
+    public JButton getBtnUpdate() {
         return btnUpdate;
     }
     
