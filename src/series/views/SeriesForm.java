@@ -69,11 +69,6 @@ public class SeriesForm extends javax.swing.JDialog {
 
         txtAreaDetail.setColumns(20);
         txtAreaDetail.setRows(5);
-        txtAreaDetail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAreaDetailKeyTyped(evt);
-            }
-        });
         detailScrollPanel.setViewportView(txtAreaDetail);
 
         lblReleased.setText("Fecha de Estreno:");
@@ -212,10 +207,6 @@ public class SeriesForm extends javax.swing.JDialog {
     private void txtTitleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTitleKeyTyped
         this.controller.txtTitleKeyTyped(evt);
     }//GEN-LAST:event_txtTitleKeyTyped
-
-    private void txtAreaDetailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaDetailKeyTyped
-        this.controller.txtAreaDetailKeyTyped(evt);
-    }//GEN-LAST:event_txtAreaDetailKeyTyped
 
     private void txtRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRateKeyTyped
         this.controller.txtRateKeyTyped(evt);

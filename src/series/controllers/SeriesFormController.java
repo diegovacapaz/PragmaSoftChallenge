@@ -122,18 +122,37 @@ public class SeriesFormController {
     }
     
     public void txtTitleKeyTyped(KeyEvent evt) {                                  
-        
-    }                                 
-
-    public void txtAreaDetailKeyTyped(KeyEvent evt) {                                       
-        
-    }                                      
+        char c = evt.getKeyChar();
+        if(c == KeyEvent.VK_ENTER) this.btnAcceptClick(null);
+    }                                    
 
     public void txtRateKeyTyped(KeyEvent evt) {                                 
-        
+        char c = evt.getKeyChar();
+        if(this.window.getTxtRate().getText().length() == 1) evt.consume();
+        if(!Character.isDigit(c)){
+            switch(c){
+                case KeyEvent.VK_ENTER:
+                    this.btnAcceptClick(null);
+                    break;
+                default:
+                    evt.consume();
+                    break;
+            }
+        }
     }                                
 
     public void txtPriceKeyTyped(KeyEvent evt) {                                  
-        
+        char c = evt.getKeyChar();
+        if(this.window.getTxtPrice().getText().contains(".") && c == KeyEvent.VK_PERIOD) evt.consume();        
+        if(!Character.isDigit(c) && c != KeyEvent.VK_PERIOD){
+            switch(c){
+                case KeyEvent.VK_ENTER:
+                    this.btnAcceptClick(null);
+                    break;
+                default:
+                    evt.consume();
+                    break;
+            }
+        }
     }     
 }
