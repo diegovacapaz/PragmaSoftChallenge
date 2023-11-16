@@ -7,6 +7,7 @@ package series.views;
 
 import database.DBConnection;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import series.controllers.CredentialsController;
 
@@ -44,9 +45,10 @@ public class Credentials extends javax.swing.JFrame {
         txtPort = new javax.swing.JTextField();
         txtDatabase = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         btnExit = new javax.swing.JButton();
         btnConnect = new javax.swing.JButton();
+        lblPassInfo = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,12 +86,6 @@ public class Credentials extends javax.swing.JFrame {
             }
         });
 
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyTyped(evt);
-            }
-        });
-
         btnExit.setText("Salir");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +97,15 @@ public class Credentials extends javax.swing.JFrame {
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConnectActionPerformed(evt);
+            }
+        });
+
+        lblPassInfo.setForeground(new java.awt.Color(50, 50, 50));
+        lblPassInfo.setText("*Solo letras y números");
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyTyped(evt);
             }
         });
 
@@ -124,12 +129,13 @@ public class Credentials extends javax.swing.JFrame {
                             .addComponent(lblUsername)
                             .addComponent(lblPassword))
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtServerHost, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPort, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(txtServerHost)
+                            .addComponent(txtDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(lblPassInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPassword))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(47, 47, 47))
         );
@@ -156,7 +162,9 @@ public class Credentials extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPassInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
                     .addComponent(btnConnect))
@@ -205,12 +213,13 @@ public class Credentials extends javax.swing.JFrame {
     private javax.swing.JButton btnConnect;
     private javax.swing.JButton btnExit;
     private javax.swing.JLabel lblDatabase;
+    private javax.swing.JLabel lblPassInfo;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPort;
     private javax.swing.JLabel lblServerHost;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JTextField txtDatabase;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPort;
     private javax.swing.JTextField txtServerHost;
     private javax.swing.JTextField txtUsername;
@@ -228,10 +237,6 @@ public class Credentials extends javax.swing.JFrame {
         return txtDatabase;
     }
 
-    public JTextField getTxtPassword() {
-        return txtPassword;
-    }
-
     public JTextField getTxtPort() {
         return txtPort;
     }
@@ -244,5 +249,7 @@ public class Credentials extends javax.swing.JFrame {
         return txtUsername;
     }
 
-    
+    public JPasswordField getTxtPassword() {
+        return txtPassword;
+    }
 }

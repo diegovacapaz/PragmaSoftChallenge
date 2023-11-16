@@ -67,4 +67,8 @@ public class DBConnection {
     public static DBConnection getCreatedConnection(){
         return instance;
     }
+    
+    public static void resetConnection(){
+        instance = null;
+    }
 }
