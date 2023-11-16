@@ -68,12 +68,7 @@ public class SeriesManager {
     }
     
     public String updateSeries(int idSeries, String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean ATP){
-        Series updatedSeries = null;
-        for(int i = 0; i < series.size(); i++){
-            if(series.get(i).getIdSeries() == idSeries){
-                updatedSeries = series.get(i);
-            }
-        }
+        Series updatedSeries = this.searchSerieById(idSeries);
         
         if(updatedSeries == null){
             return SERIES_NOT_FOUND;
@@ -85,6 +80,13 @@ public class SeriesManager {
         if(!Validation.releasedValidation(released)) return RELEASED_INVALID;
         if(!Validation.priceValidation(price)) return PRICE_INVALID;
         if(!Validation.rateValidation(rate)) return RATE_INVALID;
+        
+        SeriesDAO seriesDAO = new SeriesDAO(this.connection);
+        Series updatedDBSeries = seriesDAO.updateSeries(idSeries, title, detail, released, rate, genre, price, ATP);
+        
+        if(updatedDBSeries == null){
+            return UNKNOWN_ERROR;
+        }
         
         updatedSeries.setTitle(title);
         updatedSeries.setDetail(detail);

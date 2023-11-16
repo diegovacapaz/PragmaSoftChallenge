@@ -197,12 +197,6 @@ public class Dashboard extends javax.swing.JFrame {
         this.controller.btnCreateClick(evt);
     }//GEN-LAST:event_btnCreateActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        DashboardController controller = new DashboardController(DBConnection.configureConnection("localhost","3306","seriesadministrator","root","river123"));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;

@@ -76,7 +76,7 @@ public class SeriesDAO {
     List<Series> seriesList = new ArrayList<>();
     try {
         Connection connection = this.connectionData.connect();
-        CallableStatement cstmt = connection.prepareCall("{call getAllSeries()}");
+        CallableStatement cstmt = connection.prepareCall("{CALL getAllSeries()}");
         ResultSet resultSet = cstmt.executeQuery();
 
         while (resultSet.next()) {
@@ -108,7 +108,7 @@ public class SeriesDAO {
         int deletedId = -1;
         try {
             Connection connection = this.connectionData.connect();
-            CallableStatement cstmt = connection.prepareCall("{call deleteSeries(?, ?)}");
+            CallableStatement cstmt = connection.prepareCall("{CALL deleteSeries(?, ?)}");
 
             cstmt.setInt(1, seriesId);
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -128,7 +128,7 @@ public class SeriesDAO {
         int deactivatedSeriesId = -1;
         try{
             Connection connection = this.connectionData.connect();
-            CallableStatement cstmt = connection.prepareCall("{call deactivateSeries(?, ?)}");
+            CallableStatement cstmt = connection.prepareCall("{CALL deactivateSeries(?, ?)}");
             
             cstmt.setInt(1, idSeries);
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -150,7 +150,7 @@ public class SeriesDAO {
         int activatedSeriesId = -1;
         try{
             Connection connection = this.connectionData.connect();
-            CallableStatement cstmt = connection.prepareCall("{call activateSeries(?, ?)}");
+            CallableStatement cstmt = connection.prepareCall("{CALL activateSeries(?, ?)}");
             
             cstmt.setInt(1, idSeries);
             cstmt.registerOutParameter(2, Types.INTEGER);
@@ -166,5 +166,49 @@ public class SeriesDAO {
             this.connectionData.disconnect();
         }
         return activatedSeriesId;
+    }
+        
+    public Series updateSeries(int idToUpdate, String newTitle, String newDetail, LocalDate newReleased, int newRate, Genre newGenre, float newPrice, boolean newATP) {
+        Series updatedSeries = null;
+
+        try {
+            Connection connection = connectionData.connect();
+            CallableStatement cstmt = connection.prepareCall("{CALL updateSeries(?, ?, ?, ?, ?, ?, ?, ?)}");
+
+            cstmt.setInt(1, idToUpdate);
+            cstmt.setString(2, newTitle);
+            cstmt.setString(3, newDetail);
+            cstmt.setDate(4, java.sql.Date.valueOf(newReleased));
+            cstmt.setInt(5, newRate);
+            cstmt.setString(6, newGenre.toString());
+            cstmt.setBigDecimal(7, BigDecimal.valueOf(newPrice));
+            cstmt.setBoolean(8, newATP);
+
+            boolean results = cstmt.execute();
+
+            if (results) {
+                ResultSet resultSet = cstmt.getResultSet();
+                if (resultSet.next()) {
+                    int seriesIdReturned = resultSet.getInt("idSeries");
+                    String titleReturned = resultSet.getString("title");
+                    String detailReturned = resultSet.getString("detail");
+                    LocalDate releasedReturned = resultSet.getDate("released").toLocalDate();
+                    int rateReturned = resultSet.getInt("rate");
+                    Genre genreReturned = Genre.toGenre(resultSet.getString("genre"));
+                    float priceReturned = resultSet.getBigDecimal("price").floatValue();
+                    boolean ATPReturned = resultSet.getBoolean("ATP");
+                    String stateReturned = resultSet.getString("state");
+
+                    updatedSeries = new Series(seriesIdReturned, titleReturned, detailReturned, releasedReturned,
+                            rateReturned, genreReturned, priceReturned, ATPReturned, stateReturned);
+            }
+        }   
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            connectionData.disconnect();
+        }
+
+        return updatedSeries;
     }
 }

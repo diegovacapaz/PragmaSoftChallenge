@@ -45,6 +45,7 @@ public class DashboardController {
         this.window.setLocationRelativeTo(null);
         this.window.setTitle(WINDOW_TITLE);
         this.window.getSeriesTable().setModel(new SeriesTable());
+        this.window.setResizable(false);
         
         String rateColumnName = this.window.getSeriesTable().getColumnName(SeriesTable.RATE_COL_INDEX);
         String priceColumnName = this.window.getSeriesTable().getColumnName(SeriesTable.PRICE_COL_INDEX);
