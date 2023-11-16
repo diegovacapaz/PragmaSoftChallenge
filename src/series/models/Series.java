@@ -26,7 +26,7 @@ public class Series {
     private static final String ACTIVATE_STATE_SUCCEED = "Serie activada con éxito";
     private static final String DEACTIVATE_STATE_SUCCEED = "Serie anulada con éxito";
 
-    public Series(int idSeries, String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean ATP) {
+    public Series(int idSeries, String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean ATP, String state) {
         this.idSeries = idSeries;
         this.title = title.trim();
         this.detail = detail.trim();
@@ -35,7 +35,7 @@ public class Series {
         this.genre = genre;
         this.price = price;
         this.ATP = ATP;
-        this.state = "AC";
+        this.state = state;
     }
 
     public int getIdSeries() {

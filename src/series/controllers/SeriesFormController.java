@@ -5,6 +5,7 @@
  */
 package series.controllers;
 
+import database.DBConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
@@ -28,9 +29,12 @@ public class SeriesFormController {
     private boolean isCreateWindow;
     public static final String CREATE_WINDOW_TITLE = "Nueva Serie";
     public static final String UPDATE_WINDOW_TITLE = "Modificar Serie";
+    private DBConnection connection;
     
-    public SeriesFormController(Dashboard parent, boolean isCreateWindow, Series serie) {
+    public SeriesFormController(Dashboard parent, boolean isCreateWindow, Series serie, DBConnection connection) {
         SeriesManager manager = SeriesManager.create();
+        
+        this.connection = connection;
         
         this.window = new SeriesForm(this, parent, true);
         this.window.setLocationRelativeTo(null);
@@ -93,10 +97,9 @@ public class SeriesFormController {
             released = null;
         }
         
-        if(serie == null || this.isCreateWindow){            
+        if(serie == null || this.isCreateWindow){   
             int previousSeriesSize = manager.listSeries().size();
             String message = manager.createSeries(title, detail, released, rate, genre, price, ATP);
-            
             if(manager.listSeries().size() > previousSeriesSize){
                 JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
                 this.window.dispose();

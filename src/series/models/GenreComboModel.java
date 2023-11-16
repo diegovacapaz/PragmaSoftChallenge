@@ -41,5 +41,35 @@ public class GenreComboModel extends DefaultComboBoxModel{
         public String toString() {
             return this.value;
         }
+        
+        public static Genre toGenre(String value){
+            Genre genre = null;
+            switch(value){
+                case "Acción":
+                    genre = ACTION;
+                    break;
+                case "Terror":
+                    genre = HORROR;
+                    break;
+                case "Comedia":
+                    genre = COMEDY;
+                    break;
+                case "Drama":
+                    genre = DRAMA;
+                    break;
+                case "Fantasía":
+                    genre = FANTASY;
+                    break;
+                case "Misterio":
+                    genre = MYSTERY;
+                    break;
+                case "Ciencia Ficción":
+                    genre = SCI_FI;
+                    break;
+                default:
+                    break;
+            }
+            return genre;
+        }
     }
 }

@@ -5,6 +5,7 @@
  */
 package series.controllers;
 
+import database.DBConnection;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import series.models.CustomTableCellRenderer;
@@ -21,6 +22,7 @@ import series.views.Dashboard;
 
 public class DashboardController {
     private Dashboard window;
+    private DBConnection connection;
     private static final String WINDOW_TITLE = "Administrador de Series";
     private static final String EXIT_CONFIRMATION = "¿Desea cerrar la sesión?";
     private static final String DELETE_CONFIRMATION = "¿Desea borrar la serie seleccionada?";
@@ -31,8 +33,11 @@ public class DashboardController {
     private static final String DEACTIVATE_STATE_CONFIRMATION = "¿Desea anular la serie seleccionada?";
     private static final String UPDATE_EMPTY = "No hay series para modificar";
     private static final String UPDATE_UNABLED = "No puede modificar una serie anulada";
+    private static final String REFRESH_CONFIRMATION = "¿Desea refrescar la tabla?";
 
-    public DashboardController() {
+    public DashboardController(DBConnection connection) {
+        this.connection = connection;
+        
         this.window = new Dashboard(this);
         this.window.setLocationRelativeTo(null);
         this.window.setTitle(WINDOW_TITLE);
@@ -52,18 +57,28 @@ public class DashboardController {
         this.window.getSeriesTable().getColumn(stateColumnName).setPreferredWidth(16);
         this.window.getSeriesTable().getColumn(rateColumnName).setPreferredWidth(22);
 
-        
+        SeriesManager manager = SeriesManager.create();
+        String message = manager.refreshSeries();
+        SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
+        tableModel.refresh();
+
         this.window.setVisible(true);
     }
     
     public void btnRefreshClick(ActionEvent evt){
-        //option pane de confirmar si quiere refrescar
+        int option = JOptionPane.showOptionDialog(this.window, REFRESH_CONFIRMATION, "Salir", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Confirmar","Cancelar"}, "Cancelar");
+        if(option==JOptionPane.OK_OPTION){
+            SeriesManager manager = SeriesManager.create();
+            String message = manager.refreshSeries();
+            SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
+            tableModel.refresh();
+            JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     
     public void btnExitClick(ActionEvent evt){
         int option = JOptionPane.showOptionDialog(this.window, EXIT_CONFIRMATION, "Salir", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Confirmar","Cancelar"}, "Cancelar");
         if(option==JOptionPane.OK_OPTION){
-            //Close connection?
             System.exit(0);
         }
     }
@@ -71,7 +86,7 @@ public class DashboardController {
     public void btnCreateClick(ActionEvent evt){
         SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
         
-        SeriesFormController controller = new SeriesFormController(this.window, true, null);
+        SeriesFormController controller = new SeriesFormController(this.window, true, null, this.connection);
         tableModel.refresh();
     }
     
@@ -93,7 +108,7 @@ public class DashboardController {
         SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
         Series selectedSeries = tableModel.getSerie(selectedRow);
         if(selectedSeries.isActive()){
-            SeriesFormController controller = new SeriesFormController(this.window, false, selectedSeries);
+            SeriesFormController controller = new SeriesFormController(this.window, false, selectedSeries, this.connection);
             tableModel.refresh();
         }
         else{
