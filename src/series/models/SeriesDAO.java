@@ -33,7 +33,7 @@ public class SeriesDAO {
     public Series createSeries(String title, String detail, LocalDate released, int rate, Genre genre, float price, boolean atp) {
         Series returnedSeries = null;
         try {
-            Connection connection = connectionData.connect();
+            Connection connection = this.connectionData.connect();
             CallableStatement cstmt = connection.prepareCall("{CALL createSeries(?, ?, ?, ?, ?, ?, ?)}");
 
             cstmt.setString(1, title);
@@ -67,7 +67,7 @@ public class SeriesDAO {
         } catch (SQLException e) {
             System.out.println(e);
         } finally {
-            connectionData.disconnect();
+            this.connectionData.disconnect();
         }
         return returnedSeries;
     }
@@ -75,7 +75,7 @@ public class SeriesDAO {
     public List<Series> getAllSeries() {
     List<Series> seriesList = new ArrayList<>();
     try {
-        Connection connection = connectionData.connect();
+        Connection connection = this.connectionData.connect();
         CallableStatement cstmt = connection.prepareCall("{call getAllSeries()}");
         ResultSet resultSet = cstmt.executeQuery();
 
@@ -99,7 +99,7 @@ public class SeriesDAO {
             System.out.println(e);
             seriesList = null;
         } finally {
-            connectionData.disconnect();
+            this.connectionData.disconnect();
         }
         return seriesList;
     }
@@ -107,7 +107,7 @@ public class SeriesDAO {
     public int deleteSeries(int seriesId) {
         int deletedId = -1;
         try {
-            Connection connection = connectionData.connect();
+            Connection connection = this.connectionData.connect();
             CallableStatement cstmt = connection.prepareCall("{call deleteSeries(?, ?)}");
 
             cstmt.setInt(1, seriesId);
@@ -119,8 +119,52 @@ public class SeriesDAO {
         } catch (SQLException e) {
             System.out.println(e);
         } finally {
-            connectionData.disconnect();
+            this.connectionData.disconnect();
         }
         return deletedId;
+    }
+    
+    public int deactivateSeries(int idSeries){
+        int deactivatedSeriesId = -1;
+        try{
+            Connection connection = this.connectionData.connect();
+            CallableStatement cstmt = connection.prepareCall("{call deactivateSeries(?, ?)}");
+            
+            cstmt.setInt(1, idSeries);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            
+            cstmt.executeUpdate();
+            
+            deactivatedSeriesId = cstmt.getInt(2);
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        finally{
+            this.connectionData.disconnect();
+        }
+        return deactivatedSeriesId;
+    }
+    
+        public int activateSeries(int idSeries){
+        int activatedSeriesId = -1;
+        try{
+            Connection connection = this.connectionData.connect();
+            CallableStatement cstmt = connection.prepareCall("{call activateSeries(?, ?)}");
+            
+            cstmt.setInt(1, idSeries);
+            cstmt.registerOutParameter(2, Types.INTEGER);
+            
+            cstmt.executeUpdate();
+            
+            activatedSeriesId = cstmt.getInt(2);
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+        finally{
+            this.connectionData.disconnect();
+        }
+        return activatedSeriesId;
     }
 }

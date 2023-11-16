@@ -38,6 +38,9 @@ public class DashboardController {
     public DashboardController(DBConnection connection) {
         this.connection = connection;
         
+        SeriesManager manager = SeriesManager.create();
+        String message = manager.refreshSeries();
+        
         this.window = new Dashboard(this);
         this.window.setLocationRelativeTo(null);
         this.window.setTitle(WINDOW_TITLE);
@@ -57,12 +60,10 @@ public class DashboardController {
         this.window.getSeriesTable().getColumn(stateColumnName).setPreferredWidth(16);
         this.window.getSeriesTable().getColumn(rateColumnName).setPreferredWidth(22);
 
-        SeriesManager manager = SeriesManager.create();
-        String message = manager.refreshSeries();
-        SeriesTable tableModel = (SeriesTable)this.window.getSeriesTable().getModel();
-        tableModel.refresh();
-
         this.window.setVisible(true);
+        
+        if(message == SeriesManager.REFRESH_ERROR) JOptionPane.showMessageDialog(this.window, message, "Error", JOptionPane.ERROR_MESSAGE);
+
     }
     
     public void btnRefreshClick(ActionEvent evt){
@@ -163,7 +164,7 @@ public class DashboardController {
         if(selectedSeries.isActive()){
             int option = JOptionPane.showOptionDialog(this.window, DEACTIVATE_STATE_CONFIRMATION, "Anular Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Anular","Volver"}, "Cancelar");
             if(option==JOptionPane.OK_OPTION){
-                String message = manager.searchSerieById(selectedSeries.getIdSeries()).deactivate();
+                String message = manager.deactivateSearchedSeries(selectedSeries.getIdSeries());
                 JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
                 tableModel.refresh();
             }
@@ -171,7 +172,7 @@ public class DashboardController {
         else{
             int option = JOptionPane.showOptionDialog(this.window, ACTIVATE_STATE_CONFIRMATION, "Activar Serie", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Activar","Volver"}, "Cancelar");
             if(option==JOptionPane.OK_OPTION){
-                String message = manager.searchSerieById(selectedSeries.getIdSeries()).activate();
+                String message = manager.activateSearchedSeries(selectedSeries.getIdSeries());
                 JOptionPane.showMessageDialog(this.window, message, "Información", JOptionPane.INFORMATION_MESSAGE);
                 tableModel.refresh();
             }

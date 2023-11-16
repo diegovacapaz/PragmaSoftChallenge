@@ -100,12 +100,14 @@ public class SeriesManager {
     public String deleteSeries(int idSeries){
         SeriesDAO seriesDAO = new SeriesDAO(this.connection);
         boolean deleted = false;
-        int deletedId = seriesDAO.deleteSeries(idSeries);
-        if(deletedId == -1){
-            return SERIES_NOT_FOUND;
+        if(this.connection != null){
+            int deletedId = seriesDAO.deleteSeries(idSeries);
+            if(deletedId == -1){
+                return SERIES_NOT_FOUND;
+            }   
         }
         for(int i = 0; i < series.size(); i++){
-            if(series.get(i).getIdSeries() == deletedId){
+            if(series.get(i).getIdSeries() == idSeries){
                 series.remove(i);
                 deleted = true;
             }
@@ -137,5 +139,27 @@ public class SeriesManager {
             }
         }
         return REFRESH_ERROR;
+    }
+    
+    public String deactivateSearchedSeries(int idSerie){
+        SeriesDAO seriesDAO = new SeriesDAO(this.connection);
+        if(this.connection != null){
+            int idDeactivated = seriesDAO.deactivateSeries(idSerie);
+            if(idDeactivated == -1){
+                return UNKNOWN_ERROR;
+            }   
+        }
+        return this.searchSerieById(idSerie).deactivate();
+    }
+    
+        public String activateSearchedSeries(int idSerie){
+        SeriesDAO seriesDAO = new SeriesDAO(this.connection);
+        if(this.connection != null){
+            int idActivated = seriesDAO.activateSeries(idSerie);
+            if(idActivated == -1){
+                return UNKNOWN_ERROR;
+            }   
+        }
+        return this.searchSerieById(idSerie).activate();
     }
 }
